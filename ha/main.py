@@ -3,13 +3,14 @@ import WIFI_CONFIG
 import uasyncio
 from network_manager import NetworkManager
 
-import strip
-import purple
-import queue_handler
+from strip import Strip
+from purple import Purple
+from queue_handler import QueueHander
 
 NUM_LEDS = 50
 pattern = Purple()
-strip = Strip(NUM_LEDS, pattern)
+
+strip = Strip.build_rgb(NUM_LEDS, pattern)
 
 def status_handler(mode, status, ip):
     # for i in range(NUM_LEDS):
@@ -36,4 +37,7 @@ def default_pattern():
         for i in range(NUM_LEDS):
             led_strip.set_rgb(i, 50, 50, 50)
 
-QueueHander.queue = QueueHander("ledstrip1")
+queue = QueueHander("ledstrip2", strip)
+while True:
+    queue.check()
+    strip.update()

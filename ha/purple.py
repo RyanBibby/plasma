@@ -1,4 +1,5 @@
 class Purple:
 
-    def display():
-        pass
+
+    def display(self):
+        print("Purple")
